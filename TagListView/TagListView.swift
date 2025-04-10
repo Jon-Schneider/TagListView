@@ -205,7 +205,7 @@ open class TagListView: UIView {
         }
     }
     
-    @IBOutlet open weak var delegate: TagListViewDelegate?
+    @IBOutlet open weak var delegate: (any TagListViewDelegate)?
     
     open private(set) var tagViews: [TagView] = []
     private(set) var tagBackgroundViews: [UIView] = []
