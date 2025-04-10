@@ -14,6 +14,7 @@ open class TagView: UIButton {
     @IBInspectable open var cornerRadius: CGFloat = 0 {
         didSet {
             layer.cornerRadius = cornerRadius
+            layer.cornerCurve = .continuous
             layer.masksToBounds = cornerRadius > 0
         }
     }
