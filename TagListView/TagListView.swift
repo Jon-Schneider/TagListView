@@ -325,6 +325,37 @@ open class TagListView: UIView {
     }
     
     // MARK: - Manage tags
+
+    override open func sizeThatFits(_ size: CGSize) -> CGSize {
+        var currentRow = 0
+        var currentRowTagCount = 0
+        var currentRowWidth: CGFloat = 0
+        let frameWidth = size.width
+
+        for (_, tagView) in tagViews.enumerated() {
+            let tagViewSize = tagView.intrinsicContentSize
+
+            tagViewHeight = tagView.frame.height
+
+            if currentRowTagCount == 0 || currentRowWidth + tagViewSize.width > frameWidth {
+                currentRow += 1
+                currentRowWidth = 0
+                currentRowTagCount = 0
+            }
+
+            let tagViewWidth = max(minWidth, tagViewSize.width)
+
+            currentRowTagCount += 1
+            currentRowWidth += tagViewWidth + marginX
+        }
+        let rowCount = currentRow
+        var height = CGFloat(rowCount) * (tagViewHeight + marginY)
+        if rows > 0 {
+            height -= marginY
+        }
+
+        return CGSize(width: size.width, height: height)
+    }
     
     override open var intrinsicContentSize: CGSize {
         var height = CGFloat(rows) * (tagViewHeight + marginY)
